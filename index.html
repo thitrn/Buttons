@@ -1,13 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Powerpuff Team Builder</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Hello World</h1>
-    <script src="script.js"></script>
+
+<header class="topbar">
+  <h1>Powerpuff Team Color + Sound Builder</h1>
+  <p>Select a team member to activate their palette</p>
+</header>
+
+<main class="layout">
+  <section class="panel">
+
+    <!-- LEFT: Palette -->
+    <div class="panel__left">
+      <h2>Palette</h2>
+      <div id="palette" class="palette"></div>
+
+      <div class="tools">
+        <button id="tool-eraser">Eraser</button>
+        <button id="tool-clear">Clear</button>
+        <div class="status">
+          Active: <strong id="active-name">None</strong>
+        </div>
+      </div>
+
+      <button id="add-sound" disabled>
+        Add sound layer (coming soon)
+      </button>
+    </div>
+
+    <!-- RIGHT: Canvas -->
+    <div class="panel__right">
+      <div class="frame">
+        <p class="frame__label">Picture / Coloring Area</p>
+        <canvas id="paint" width="900" height="520"></canvas>
+      </div>
+
+      <p class="arrow-hint">⬇ Click a button below to begin</p>
+
+      <!-- TEAM BUTTONS -->
+      <div class="team-buttons">
+
+        <!-- Thi / Blossom -->
+        <button class="blossom-bow" id="btn-blossom">
+          <svg class="bow-svg" viewBox="0 0 320 180">
+            <path d="M35,90 C10,55 15,25 55,25 C95,25 125,55 140,90 C125,125 95,155 55,155 C15,155 10,125 35,90 Z"
+                  fill="#ffb6c1" stroke="#ff4f93" stroke-width="8"/>
+            <path d="M285,90 C310,55 305,25 265,25 C225,25 195,55 180,90 C195,125 225,155 265,155 C305,155 310,125 285,90 Z"
+                  fill="#ffb6c1" stroke="#ff4f93" stroke-width="8"/>
+            <rect x="135" y="58" width="50" height="64" rx="14"
+                  fill="#ff8fb7" stroke="#ff2f7f" stroke-width="8"/>
+            <text x="160" y="98" text-anchor="middle"
+                  font-size="20" font-weight="800"
+                  fill="#7a0030">Thi</text>
+          </svg>
+        </button>
+
+        <!-- Delaram / Bubbles -->
+        <button class="bubble-button" id="btn-bubbles">
+          <img src="bubble.png" alt="Bubbles button">
+          <span>Delaram</span>
+        </button>
+
+        <!-- Abi / Buttercup -->
+        <button class="buttercup" id="btn-buttercup">
+          Abi
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
