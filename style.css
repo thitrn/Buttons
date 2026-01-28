@@ -1,19 +1,177 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+html {
+  height: 100vh;
+  background: white;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
+.buttercup-button {
+  position: absolute;
+  bottom: 75%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-h1 {
-    color: #333;
-    font-size: 2.5rem;
+.sunflower {
+  width: 50vmin;
+  height: 50vmin;
+  position: relative;
+}
+
+.sunflower-center {
+  border-radius: 50%;
+  background-color: #b06500;
+  background-image: linear-gradient(315deg, #b06500 0%, #5A321A 74%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  height: 25%;
+}
+
+.sunflower-center h3 {
+  margin: 0;
+  color: #e4eec5;
+  font-size: 4vmin;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  text-align: center;
+  z-index: 3;
+  opacity: 1;
+}
+
+.hover-text {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #e4eec5;
+  font-size: 1.5rem;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+  width: 100%;
+  margin-top: -18vh;
+}
+
+.sunflower-petal-1, .sunflower-petal-7, .sunflower-petal-12, .sunflower-petal-11, .sunflower-petal-10, .sunflower-petal-9, .sunflower-petal-8, .sunflower-petal-6, .sunflower-petal-5, .sunflower-petal-4, .sunflower-petal-3, .sunflower-petal-2 {
+  border-radius: 50%;
+  background: #7f9b2a;
+  background: linear-gradient(90deg, rgba(127, 155, 42, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.sunflower-petal-2 {
+  transform: translate(-50%, -50%) rotate(30deg);
+}
+.sunflower-petal-3 {
+  transform: translate(-50%, -50%) rotate(60deg);
+}
+.sunflower-petal-4 {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.sunflower-petal-5 {
+  transform: translate(-50%, -50%) rotate(120deg);
+}
+.sunflower-petal-6 {
+  transform: translate(-50%, -50%) rotate(150deg);
+}
+.sunflower-petal-7, .sunflower-petal-12, .sunflower-petal-11, .sunflower-petal-10, .sunflower-petal-9, .sunflower-petal-8 {
+  border-radius: 20% 50% 20% 50%;
+  transform: translate(-50%, -50%) rotate(15deg);
+}
+.sunflower-petal-8 {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.sunflower-petal-9 {
+  transform: translate(-50%, -50%) rotate(75deg);
+}
+.sunflower-petal-10 {
+  transform: translate(-50%, -50%) rotate(105deg);
+}
+.sunflower-petal-11 {
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+.sunflower-petal-12 {
+  transform: translate(-50%, -50%) rotate(165deg);
+}
+
+.sunflower-petal-1:hover,
+.sunflower-petal-2:hover,
+.sunflower-petal-3:hover,
+.sunflower-petal-4:hover,
+.sunflower-petal-5:hover,
+.sunflower-petal-6:hover,
+.sunflower-petal-7:hover,
+.sunflower-petal-8:hover,
+.sunflower-petal-9:hover,
+.sunflower-petal-10:hover,
+.sunflower-petal-11:hover,
+.sunflower-petal-12:hover {
+  background: radial-gradient(
+    circle at center,
+    #ffffff,
+    #ffec00,
+    #ff7f50,
+    #ff4500,
+    #8b0000
+  );
+}
+
+.sunflower:hover .sunflower-petal-1,
+.sunflower:hover .sunflower-petal-2,
+.sunflower:hover .sunflower-petal-3,
+.sunflower:hover .sunflower-petal-4,
+.sunflower:hover .sunflower-petal-5,
+.sunflower:hover .sunflower-petal-6 {
+  animation: grow-petal-back 1s 0s forwards;
+}
+
+.sunflower:hover .sunflower-petal-7,
+.sunflower:hover .sunflower-petal-8,
+.sunflower:hover .sunflower-petal-9,
+.sunflower:hover .sunflower-petal-10,
+.sunflower:hover .sunflower-petal-11,
+.sunflower:hover .sunflower-petal-12 {
+  animation: grow-petal-front 1s 0.5s forwards;
+}
+
+.sunflower:hover ~ .hover-text {
+  opacity: 0;
+}
+
+@keyframes grow-petal-front {
+  0% {
+    height: 0%;
+    width: 0%;
+    border: 0px solid black;
+  }
+  100% {
+    height: 35%;
+    width: 10%;
+    border: 2px solid black;
+  }
+}
+
+@keyframes grow-petal-back {
+  0% {
+    width: 0%;
+    height: 0%;
+    border: 0px solid black;
+  }
+  100% {
+    width: 15%;
+    height: 45%;
+    border: 2px solid black;
+  }
 }
