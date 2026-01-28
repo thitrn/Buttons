@@ -1,21 +1,124 @@
-/* Base reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; }
 
-/* Page defaults */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  color: #000000;
-  padding: 40px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fbfbfd;
 }
 
-/* Simple heading style */
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
+.topbar {
+  padding: 16px;
+  background: white;
+  border-bottom: 1px solid #ddd;
 }
 
+.layout {
+  padding: 20px;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+}
+
+.panel__left,
+.panel__right {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.swatch {
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.swatch.selected {
+  outline: 3px solid black;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.status {
+  grid-column: span 2;
+}
+
+.frame {
+  border: 8px solid pink;
+  border-radius: 16px;
+  padding: 8px;
+}
+
+canvas {
+  width: 100%;
+  border-radius: 12px;
+  background: white;
+}
+
+.arrow-hint {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* TEAM BUTTONS */
+.team-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* Blossom */
+.blossom-bow {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.bow-svg {
+  width: 160px;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,0.2));
+}
+.blossom-bow.is-active .bow-svg {
+  filter: drop-shadow(0 0 18px hotpink);
+}
+
+/* Bubbles */
+.bubble-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+}
+.bubble-button img {
+  width: 100px;
+}
+
+/* Buttercup */
+.buttercup {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #2ecc71;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.buttercup.is-active {
+  box-shadow: 0 0 0 4px rgba(0,255,0,0.4);
+}
