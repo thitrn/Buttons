@@ -18,7 +18,7 @@ This project uses interactive buttons to showcase each team member's personality
 
 ## How It Works
 
-The buttons below represent each of us. Interact with them to learn about us through colours, sound, and stickers! PS: Make sure your volume is on!
+The buttons at the bottom of the navbar represent each of us. Interact with them to learn about us through colours, sound, and stickers! PS: Make sure your volume is on!
 
 The paintings represent our team dynamics. Try to get to the final result using the colours and stickers!
 
