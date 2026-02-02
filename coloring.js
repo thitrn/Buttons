@@ -648,6 +648,30 @@ customElements.define('coloring-book', class extends HTMLElement {
                 color: var(--theme-color, #72ac9a);
                 opacity: 0.8;
             }
+
+            .sticker-panel {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .sticker-thumb {
+                width: 60px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+            .sticker-thumb:hover {
+                transform: scale(1.1);
+            }
+
+            .sticker {
+                position: absolute;
+                width: 120px;
+                touch-action: none;
+                cursor: grab;
+                z-index: 2000;
+            }
         `;
         this.shadowRoot.appendChild(style);
 
@@ -656,6 +680,10 @@ customElements.define('coloring-book', class extends HTMLElement {
         fontAwesomeLink.rel = 'stylesheet';
         fontAwesomeLink.type = 'text/css';
         this.shadowRoot.appendChild(fontAwesomeLink);
+
+        const interactScript = document.createElement('script');
+        interactScript.src = "https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js";
+        this.shadowRoot.appendChild(interactScript);
 
         const cssAttr = this.getAttribute('css');
         if (cssAttr) {
@@ -696,6 +724,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                         </div>
                         <div class="nav-section">
                             <span href="">Stickers</span>
+                            <div class="sticker-panel nav-subsection"></div>
                         </div>
                         <div class="nav-section">
                             <span href="">Add Sound</span>
@@ -856,6 +885,7 @@ customElements.define('coloring-book', class extends HTMLElement {
 
         this.generatePalette();
         this.drawImageNav();
+        this.drawStickers();
     }
 
     generatePalette() {
@@ -1263,5 +1293,80 @@ customElements.define('coloring-book', class extends HTMLElement {
 
         const url = canvas.toDataURL();
         this.wrapper.style.cursor = `url(${url}) 16 16, pointer`;
+    }
+
+    drawStickers() {
+        const panel = this.shadowRoot.querySelector('.sticker-panel');
+
+        const bubble = document.createElement('img');
+        bubble.src = "/assets/bubble.png";
+        bubble.className = "sticker-thumb";
+
+        bubble.addEventListener('click', () => {
+            this.addSticker(bubble.src);
+        });
+
+        panel.appendChild(bubble);
+    }
+
+    addSticker(src) {
+        const sticker = document.createElement('img');
+        sticker.src = src;
+        sticker.className = "sticker";
+
+        sticker.style.left = "50%";
+        sticker.style.top = "50%";
+        sticker.style.transform = "translate(-50%, -50%)";
+
+        this.canvasWrapper.appendChild(sticker);
+
+        this.makeInteractive(sticker);
+    }
+
+    makeInteractive(target) {
+        if (typeof window.interact === 'undefined') {
+            console.warn('Interact.js not loaded yet, retrying...');
+            setTimeout(() => this.makeInteractive(target), 100);
+            return;
+        }
+        window.interact(target)
+            .draggable({
+                listeners: {
+                    move(event) {
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                        target.style.transform = `translate(${x}px, ${y}px) rotate(${target.getAttribute('data-rot') || 0}deg)`;
+
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    }
+                }
+            })
+            .resizable({
+                edges: { left: true, right: true, bottom: true, top: true },
+                listeners: {
+                    move(event) {
+                        let { width, height } = event.rect;
+                        target.style.width = `${width}px`;
+                        target.style.height = `${height}px`;
+                    }
+                }
+            })
+            .gesturable({
+                listeners: {
+                    move(event) {
+                        const currentRotation = parseFloat(target.getAttribute('data-rot')) || 0;
+                        const newRotation = currentRotation + event.da;
+
+                        target.style.transform = `translate(
+                            ${target.getAttribute('data-x') || 0}px,
+                            ${target.getAttribute('data-y') || 0}px
+                        ) rotate(${newRotation}deg)`;
+
+                        target.setAttribute('data-rot', newRotation);
+                    }
+                }
+            });
     }
 });
