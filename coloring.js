@@ -87,6 +87,12 @@ customElements.define('coloring-book', class extends HTMLElement {
             bubble: '<h1>Hi, my name is <br><span>Delaram.</span></h1>',
             sunflower: '<h1>Hi, my name is <br><span>Abi.</span></h1>'
         };
+
+        this.stickerConfigs = {
+            sunflower: ['/assets/stickers/abi/ethiopia.png', '/assets/stickers/abi/music.png', '/assets/stickers/abi/plant.png', '/assets/stickers/abi/poetry.png', '/assets/stickers/abi/tv.png', '/assets/stickers/abi/books.png'],
+            bubble: ['/assets/stickers/delaram/iran-flag.png', '/assets/stickers/delaram/cheeseburger.png', '/assets/stickers/delaram/margarita.png', '/assets/stickers/delaram/piano.png', '/assets/stickers/delaram/swan.png', '/assets/stickers/delaram/bubblebath.png'],
+            blossom: ['/assets/stickers/crystal/airplane.png', '/assets/stickers/crystal/candy.png', '/assets/stickers/crystal/concert.png', '/assets/stickers/crystal/megaphone.png', '/assets/stickers/crystal/sub.png', '/assets/stickers/crystal/vietnam.png'],
+        };
     }
 
     connectedCallback() {
@@ -648,6 +654,76 @@ customElements.define('coloring-book', class extends HTMLElement {
                 color: var(--theme-color, #72ac9a);
                 opacity: 0.8;
             }
+
+            .sticker-panel {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .sticker-thumb {
+                width: 60px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+            .sticker-thumb:hover {
+                transform: scale(1.1);
+            }
+
+            .sticker {
+                position: absolute;
+                width: 120px;
+                touch-action: none;
+                cursor: grab;
+                z-index: 2000;
+            }
+
+            .sticker-container {
+                position: absolute;
+                touch-action: none;
+                cursor: grab;
+                z-index: 2000;
+            }
+
+            .sticker-container .sticker {
+                position: relative;
+            }
+
+            .sticker-close {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                width: 20px;
+                height: 20px;
+                background-color: rgba(255, 255, 255, 0.9);
+                border: 2px solid rgba(0, 0, 0, 0.6);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: bold;
+                color: rgba(0, 0, 0, 0.8);
+                z-index: 2001;
+                transition: all 0.2s ease;
+                line-height: 1;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .sticker-container:hover .sticker-close {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .sticker-close:hover {
+                background-color: rgba(255, 0, 0, 0.9);
+                color: white;
+                border-color: rgba(255, 0, 0, 0.9);
+                transform: scale(1.1);
+            }
         `;
         this.shadowRoot.appendChild(style);
 
@@ -656,6 +732,10 @@ customElements.define('coloring-book', class extends HTMLElement {
         fontAwesomeLink.rel = 'stylesheet';
         fontAwesomeLink.type = 'text/css';
         this.shadowRoot.appendChild(fontAwesomeLink);
+
+        const interactScript = document.createElement('script');
+        interactScript.src = "https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js";
+        this.shadowRoot.appendChild(interactScript);
 
         const cssAttr = this.getAttribute('css');
         if (cssAttr) {
@@ -696,9 +776,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                         </div>
                         <div class="nav-section">
                             <span href="">Stickers</span>
-                        </div>
-                        <div class="nav-section">
-                            <span href="">Add Sound</span>
+                            <div class="sticker-panel nav-subsection"></div>
                         </div>
                         <div class="nav-section">
                             <span href="">Other Paintings</span>
@@ -736,7 +814,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                             </div>
                             <div class="button">
                                 <button class="bubble-button">
-                                    <img src="/assets/bubble.png" alt="bubble" class="bubble">
+                                    <img src="/assets/other/bubble.png" alt="bubble" class="bubble">
                                     <span class="bubble-text">Delaram</span>
                                     <span class="mini-bubble b1"></span>
                                     <span class="mini-bubble b2"></span>
@@ -815,6 +893,8 @@ customElements.define('coloring-book', class extends HTMLElement {
                 if (this.titleElement) {
                     this.titleElement.innerHTML = this.themeTitles.blossom;
                 }
+                
+                this.drawStickers('blossom');
             });
         }
 
@@ -833,6 +913,8 @@ customElements.define('coloring-book', class extends HTMLElement {
                 if (this.titleElement) {
                     this.titleElement.innerHTML = this.themeTitles.bubble;
                 }
+                
+                this.drawStickers('bubble');
             });
         }
 
@@ -851,11 +933,14 @@ customElements.define('coloring-book', class extends HTMLElement {
                 if (this.titleElement) {
                     this.titleElement.innerHTML = this.themeTitles.sunflower;
                 }
+                
+                this.drawStickers('sunflower');
             });
         }
 
         this.generatePalette();
         this.drawImageNav();
+        this.drawStickers();
     }
 
     generatePalette() {
@@ -1238,7 +1323,7 @@ customElements.define('coloring-book', class extends HTMLElement {
 
     setCursor() {
         const size = parseInt(this.sizer.value, 10);
-        const effectiveSize = Math.max(2, Math.min(size, 32)); // Clamp size
+        const effectiveSize = Math.max(2, Math.min(size, 32));
         const canvas = document.createElement('canvas');
         canvas.height = 32;
         canvas.width = 32;
@@ -1263,5 +1348,110 @@ customElements.define('coloring-book', class extends HTMLElement {
 
         const url = canvas.toDataURL();
         this.wrapper.style.cursor = `url(${url}) 16 16, pointer`;
+    }
+
+    drawStickers(theme = null) {
+        const panel = this.shadowRoot.querySelector('.sticker-panel');
+        
+        panel.innerHTML = '';
+        
+        if (!theme || !this.stickerConfigs[theme]) {
+            const message = document.createElement('h6');
+            message.textContent = 'Click on the buttons to see the stickers that represent us!';
+            panel.appendChild(message);
+            return;
+        }
+        
+        const stickers = this.stickerConfigs[theme];
+        
+        stickers.forEach(stickerSrc => {
+            const thumb = document.createElement('img');
+            thumb.src = stickerSrc;
+            thumb.className = "sticker-thumb";
+
+            thumb.addEventListener('click', () => {
+                this.addSticker(stickerSrc);
+            });
+
+            panel.appendChild(thumb);
+        });
+    }
+
+    addSticker(src) {
+        const container = document.createElement('div');
+        container.className = "sticker-container";
+        container.style.left = "50%";
+        container.style.top = "50%";
+        container.style.transform = "translate(-50%, -50%)";
+        container.style.width = "120px";
+
+        const sticker = document.createElement('img');
+        sticker.src = src;
+        sticker.className = "sticker";
+        sticker.style.width = "100%";
+        sticker.style.height = "auto";
+        sticker.style.display = "block";
+
+        const closeBtn = document.createElement('div');
+        closeBtn.className = "sticker-close";
+        closeBtn.textContent = "×";
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            container.remove();
+        });
+
+        container.appendChild(sticker);
+        container.appendChild(closeBtn);
+
+        this.canvasWrapper.appendChild(container);
+
+        this.makeInteractive(container);
+    }
+
+    makeInteractive(target) {
+        if (typeof window.interact === 'undefined') {
+            console.warn('Interact.js not loaded yet, retrying...');
+            setTimeout(() => this.makeInteractive(target), 100);
+            return;
+        }
+        window.interact(target)
+            .draggable({
+                listeners: {
+                    move(event) {
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                        target.style.transform = `translate(${x}px, ${y}px) rotate(${target.getAttribute('data-rot') || 0}deg)`;
+
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    }
+                }
+            })
+            .resizable({
+                edges: { left: true, right: true, bottom: true, top: true },
+                listeners: {
+                    move(event) {
+                        let { width, height } = event.rect;
+                        target.style.width = `${width}px`;
+                        target.style.height = `${height}px`;
+                    }
+                }
+            })
+            .gesturable({
+                listeners: {
+                    move(event) {
+                        const currentRotation = parseFloat(target.getAttribute('data-rot')) || 0;
+                        const newRotation = currentRotation + event.da;
+
+                        target.style.transform = `translate(
+                            ${target.getAttribute('data-x') || 0}px,
+                            ${target.getAttribute('data-y') || 0}px
+                        ) rotate(${newRotation}deg)`;
+
+                        target.setAttribute('data-rot', newRotation);
+                    }
+                }
+            });
     }
 });

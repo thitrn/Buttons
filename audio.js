@@ -88,7 +88,6 @@
   }
 
 
-  // Blossom: triangle chimes on a cute pattern within the bar
   function scheduleBlossomBar(barStart) {
 
     beep({ t: barStart + step * 0,  freq: 784, type: "triangle", dur: 0.11, gain: 0.10 });
