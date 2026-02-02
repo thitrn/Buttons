@@ -77,7 +77,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                 'white'
             ],
             sunflower: [
-                'rgba(87, 87, 87, 0.8)',
+                'rgba(0, 0, 0, 0.8)',
                 'rgba(255, 215, 0, 0.8)',
                 'rgba(255, 165, 0, 0.8)',
                 'rgba(255, 140, 0, 0.8)',
@@ -91,6 +91,12 @@ customElements.define('coloring-book', class extends HTMLElement {
                 'rgba(255, 239, 213, 0.8)',
                 'rgba(255, 228, 181, 0.8)',
                 'rgba(255, 218, 185, 0.8)',
+                'rgba(34, 139, 34, 0.8)',
+                'rgba(50, 205, 50, 0.8)',
+                'rgba(144, 238, 144, 0.8)',
+                'rgba(107, 142, 35, 0.8)',
+                'rgba(127, 255, 0, 0.8)',
+                'rgba(154, 205, 50, 0.8)',
                 'white'
             ]
         };
