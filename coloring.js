@@ -259,7 +259,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                 margin-top: 30px;
                 margin-left: 30px;
             }
-            .nav--open-menu span:not(.bubble-text) {
+            .nav--open-menu span:not(.bubble-text, .mini-bubble) {
                 font-size: 1.2em;
                 font-weight: bold;
                 font-family: "Playfair Display", serif;
@@ -458,25 +458,25 @@ customElements.define('coloring-book', class extends HTMLElement {
 
             .bubble-button:hover .mini-bubble {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(0.2);
             }
             .bubble-button:hover .b1 {
-            transform: translate(-10px, -10px) scale(1.3);
+            transform: translate(-1px, -1px) scale(1.1);
             }
 
             .bubble-button:hover .b2 {
-            transform: translate(12px, -6px) scale(2.2);
+            transform: translate(1px, -1px) scale(1.1);
             }
 
             .bubble-button:hover .b3 {
-            transform: translate(-8px, 12px) scale(1.6);
+            transform: translate(-1px, 1px) scale(1.1);
             }
 
             .bubble-button:hover .b4 {
-            transform: translate(10px, 10px) scale(1.2);
+            transform: translate(1px, 1px) scale(1.1);
             }
             .bubble-button:hover .b5 {
-            transform: translate(10px, 10px) scale(0.9);
+            transform: translate(1px, 1px) scale(1.1);
             }
 
             @keyframes float {
