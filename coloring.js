@@ -737,6 +737,13 @@ customElements.define('coloring-book', class extends HTMLElement {
                 border-color: rgba(255, 0, 0, 0.9);
                 transform: scale(1.1);
             }
+
+            @media (max-width: 1024px) {
+                .hover-text {
+                    display: none !important;
+                }
+            }
+
         `;
         this.shadowRoot.appendChild(style);
 
