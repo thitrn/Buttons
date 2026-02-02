@@ -32,14 +32,11 @@ customElements.define('coloring-book', class extends HTMLElement {
             'rgba(29, 105, 20,0.8)',
             'rgba(129, 74, 25,0.8)',
             'rgba(129, 38, 192,0.8)',
-            'rgba(160, 160, 160,0.8)',
             'rgba(129, 197, 122,0.8)',
             'rgba(157, 175, 255,0.8)',
             'rgba(41, 208, 208,0.8)',
             'rgba(255, 146, 51,0.8)',
             'rgba(255, 238, 51,0.8)',
-            'rgba(233, 222, 187,0.8)',
-            'rgba(255, 205, 243,0.8)',
             'white'
         ];
 
@@ -773,7 +770,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                     <div class="nav--open-menu">
                         <div class="title-container">
                             <h1>We are Group 5 ❀</h1> 
-                            <h6>🌱 The buttons below represent each of us. Interact with them to learn about us through colours, sound, and stickers!</h6>
+                            <h6>🌱 The buttons below represent each of us. Interact with them to learn about us through colours, sound, and stickers! PS: Make sure you're volume is on!</h6>
                             <h6>🌱 The paintings represent our team dynamics. Try to get to the final result using the colours and stickers!</h6>
                         </div>
                         <div class="nav-section">
