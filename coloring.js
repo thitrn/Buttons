@@ -1,3 +1,19 @@
+/**
+ * This file uses the following open-source libraries in addition to our own implementation of our buttons, design, and functionality:
+ * 
+ * 1. interact.js - JavaScript drag and drop, resizing, and multi-touch gestures library
+ *    Website: https://interactjs.io/
+ *    Copyright (c) 2012-present Taye Adeyemi
+ *    Licensed under MIT License
+ *    Used for: Drag, resize, and rotate functionality for stickers
+ * 
+ * 2. jl-coloringbook - Web component for creating customizable coloring books
+ *    Repository: https://github.com/collinph/jl-coloringbook
+ *    Copyright (c) 2020-2022 Joe Love
+ *    Licensed for free use (as per repository terms)
+ *    Used as: Base implementation and inspiration for the coloring book web component
+ */
+
 "use strict";
 customElements.define('coloring-book', class extends HTMLElement {
     constructor() {
