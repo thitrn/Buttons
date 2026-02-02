@@ -1,0 +1,7 @@
+{
+    "main": "coloring.js",
+    "scripts": {
+      "start": "npx http-server -p 8080 -o /index.html"
+  }
+}
+  
