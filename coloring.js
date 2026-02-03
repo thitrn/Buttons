@@ -748,6 +748,14 @@ customElements.define('coloring-book', class extends HTMLElement {
                 .buttons {
                     flex-direction: column;
                 }
+
+                .button {
+                    margin-top: 5vh !important;
+                }
+
+                .nav--open {
+                    overflow-y: scroll;
+                }
             }
 
         `;
