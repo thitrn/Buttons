@@ -22,8 +22,10 @@ The buttons at the bottom of the navbar represent each of us. Interact with them
 
 The paintings represent our team dynamics. Try to get to the final result using the colours and stickers!
 
+**Note:** A vertical iPad provides the best experience for coloring and drag and drop, but a computer may do as well.
+
 ## How To Run It
 
-- You can access the deployed site here: 
+- You can access the deployed site here: https://colormebutton.vercel.app
 - You can run it locally using the command `npm start`
 - This will start a local server on port 8080 and open the application in your browser
