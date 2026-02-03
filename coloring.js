@@ -750,7 +750,7 @@ customElements.define('coloring-book', class extends HTMLElement {
                 }
 
                 .button {
-                    margin-top: 5vh !important;
+                    margin-top: 3vh !important;
                 }
 
                 .nav--open {
