@@ -746,7 +746,11 @@ customElements.define('coloring-book', class extends HTMLElement {
 
             @media (max-width: 1024px) {
                 .hover-text {
-                    display: none !important;
+                    margin-top: -8vh !important;
+                }
+                
+                .buttons {
+                    flex-direction: column;
                 }
             }
 
